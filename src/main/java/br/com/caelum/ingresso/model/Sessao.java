@@ -53,22 +53,14 @@ public class Sessao {
 		this.filme = filme;
 	}
 
-	/**
-	 * 
-	 * @deprecated hibernate only
-	 */
-	public Sessao(){
-		
+	public LocalTime getHorarioTermino() {
+		return this.horario.plusMinutes(this.filme.getDuracao().toMinutes());
 	}
 	
 	public Sessao(LocalTime horario, Filme filme, Sala sala) {
 		this.horario = horario;
 		this.filme = filme;
 		this.sala = sala;
-	}
-	
-	public LocalTime getHorarioTermino() {
-		return this.horario.plusMinutes(filme.getDuracao().toMinutes());
 	}
 	
 	//criar getters e setters
