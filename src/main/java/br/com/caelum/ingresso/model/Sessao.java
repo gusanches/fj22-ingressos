@@ -57,6 +57,13 @@ public class Sessao {
 		return this.horario.plusMinutes(this.filme.getDuracao().toMinutes());
 	}
 	
+	/**
+	 * @deprecated hibernate only
+	 */
+	public Sessao() {
+
+	}
+	
 	public Sessao(LocalTime horario, Filme filme, Sala sala) {
 		this.horario = horario;
 		this.filme = filme;
