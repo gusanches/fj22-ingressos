@@ -15,23 +15,24 @@ public class GerenciadorDeSessao {
 		// TODO Auto-generated constructor stub
 	}
 
-					public boolean cabe(Sessao novaSessao) {
-								
-							
-							return listaDeSessoes.stream().noneMatch(x -> conflita(x,novaSessao));
-						
-					}
+	public boolean cabe(Sessao novaSessao) {	
+		return listaDeSessoes.stream().noneMatch(x -> conflita(x,novaSessao));
+	}
 	
-
 	private boolean conflita(Sessao antigaSessao, Sessao novaSessao) {
 		LocalDateTime inicioSessaoAntiga = antigaSessao.getHorario().atDate(LocalDate.now());
 		LocalDateTime finalSessaoAntiga = antigaSessao.getHorarioTermino().atDate(LocalDate.now());
 		LocalDateTime inicioSessaoNova = novaSessao.getHorario().atDate(LocalDate.now());
+		LocalDateTime finalSessaoNova = novaSessao.getHorarioTermino().atDate(LocalDate.now());
+		boolean sessaoAntigaComecaAntesDaSessaoNova = inicioSessaoAntiga.isBefore(inicioSessaoNova);
 		
-		 if (inicioSessaoNova.isAfter(inicioSessaoAntiga) && inicioSessaoNova.isBefore(finalSessaoAntiga))
-			 return true;
-		
-		return false;
+		if(sessaoAntigaComecaAntesDaSessaoNova){
+			return finalSessaoAntiga.isAfter(inicioSessaoNova);
+		}
+		else
+		{
+			return finalSessaoNova.isAfter(inicioSessaoAntiga);
+		}
 		
 	}
 

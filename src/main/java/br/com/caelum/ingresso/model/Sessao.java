@@ -1,5 +1,7 @@
 package br.com.caelum.ingresso.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalTime;
 
 import javax.persistence.Entity;
@@ -12,6 +14,16 @@ public class Sessao {
 	@Id
 	@GeneratedValue	
 	private Integer id;
+	
+	private LocalTime horario;
+	
+	@ManyToOne
+	private Sala sala;
+	
+	@ManyToOne
+	private Filme filme;
+	
+	private BigDecimal preco;
 		
 	public Integer getId() {
 		return id;
@@ -20,8 +32,6 @@ public class Sessao {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-	private LocalTime horario;
 	
 	public LocalTime getHorario() {
 		return horario;
@@ -30,9 +40,6 @@ public class Sessao {
 	public void setHorario(LocalTime horario) {
 		this.horario = horario;
 	}
-
-	@ManyToOne
-	private Sala sala;
 	
 	public Sala getSala() {
 		return sala;
@@ -41,9 +48,6 @@ public class Sessao {
 	public void setSala(Sala sala) {
 		this.sala = sala;
 	}
-
-	@ManyToOne
-	private Filme filme;
 	
 	public Filme getFilme() {
 		return filme;
@@ -53,6 +57,14 @@ public class Sessao {
 		this.filme = filme;
 	}
 
+	public BigDecimal getPreco() {
+		return this.preco.setScale(2, RoundingMode.HALF_UP);
+	}
+
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
+	}
+	
 	public LocalTime getHorarioTermino() {
 		return this.horario.plusMinutes(this.filme.getDuracao().toMinutes());
 	}
@@ -68,7 +80,6 @@ public class Sessao {
 		this.horario = horario;
 		this.filme = filme;
 		this.sala = sala;
+		this.preco = filme.getPreco().add(sala.getPreco());
 	}
-	
-	//criar getters e setters
 }
