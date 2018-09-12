@@ -23,8 +23,9 @@
 						<td>${filme.nome}</td>
 						<td>${filme.duracao.toMinutes()}</td>
 						<td>${filme.preco}</td>						
-						<td>
+						<td align="center">
 							<a onclick="excluir(${filme.id})" class="btn btn-danger">Excluir</a>
+							<a href="/admin/filme/${filme.id}" class="btn btn-info">Alterar</a>
 						</td>
 					</tr>
 				</c:forEach>
