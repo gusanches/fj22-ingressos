@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xmlns:context="http://www.springframework.org/schema/context"
@@ -18,7 +17,7 @@
 	<jpa:repositories base-package="br.com.caelum.ingresso" />
 
 	<context:component-scan base-package="br.com.caelum.ingresso" />
-	<mvc:annotation-driven />
+	<mvc:annotation-driven conversion-service="conversionService" />
 	<mvc:default-servlet-handler/>
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -60,6 +59,14 @@
 				<prop key="mail.smtp.starttls.enable">true</prop>
 				<prop key="mail.debug">true</prop>
 			</props>
+		</property>
+	</bean>
+	
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<set merge="true">
+				<bean class="br.com.caelum.ingresso.converter.YearMonthConverter" />
+			</set>
 		</property>
 	</bean>
 
